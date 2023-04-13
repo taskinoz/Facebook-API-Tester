@@ -11,3 +11,15 @@
 ### Product Catalogue
 
 `https://developers.facebook.com/docs/marketing-api/reference/product-catalog/products/`
+
+### Curl Command
+
+```bash
+curl -G \
+-d 'limit=1000' \
+-d 'after=0' \
+-d 'fields=fields=id,retailer_id,name,short_description,description,currency,price,product_catalog,manufacturer_part_number,custom_label_0,custom_label_1,custom_label_2,custom_label_3,custom_label_4,image_url,url' \
+-d 'access_token=ACCESS_TOKEN' \
+-d 'appsecret_proof=APP_SECRET' \
+https://graph.facebook.com/API_VERSION/PRODUCT_SET/products
+```

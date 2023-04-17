@@ -1,8 +1,10 @@
 import { useState } from 'react'
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button, Container, Form, Row, Col } from 'react-bootstrap';
-
+import { Button, Container, Form, Row, Col, Nav, Navbar, NavDropdown } from 'react-bootstrap';
+import ApiVersion from './Components/ApiVersion';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFacebook, faFacebookF } from '@fortawesome/free-brands-svg-icons';
 
 function App() {
   const [apiVersion, setApiVersion] = useState('v12.0');
@@ -49,18 +51,39 @@ function App() {
 
   return (
     <div className="App">
+      <Navbar expand="lg" className="navbar-bg">
+        <Container>
+          <Navbar.Brand href="#home"><FontAwesomeIcon className="nav-icon" icon={faFacebookF} /></Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="me-auto">
+              <Nav.Link href="#home">Home</Nav.Link>
+              <Nav.Link href="#link">Link</Nav.Link>
+              <NavDropdown title="Dropdown" id="basic-nav-dropdown">
+                <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.2">
+                  Another action
+                </NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item href="#action/3.4">
+                  Separated link
+                </NavDropdown.Item>
+              </NavDropdown>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
       <Container>
         <Form>
           <Row className="mb-3">
             <Form.Group as={Col}>
-              <Form.Label>API Version:</Form.Label>
-              <Form.Select value={apiVersion} onChange={e => setApiVersion(e.target.value)}>
-                <option value="v12.0">v12.0</option>
-                <option value="v13.0">v13.0</option>
-                <option value="v14.0">v14.0</option>
-                <option value="v15.0">v15.0</option>
-                <option value="v16.0">v16.0</option>
-              </Form.Select>
+              <ApiVersion 
+                apiVersion={apiVersion}
+                setApiVersion={setApiVersion}
+                minVersion={12}
+                maxVersion={16}
+              />
             </Form.Group>
             <Form.Group as={Col}>
               <Form.Label>Product Set:</Form.Label>

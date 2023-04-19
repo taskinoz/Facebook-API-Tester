@@ -55,7 +55,7 @@ function App() {
   return (
     <div className="App">
       <Navbar expand="lg" className="navbar-bg">
-        <Container style={{filter: `blur(${settingsOpen?'3':'0'}px)`}}>
+        <Container className={settingsOpen?'blur':''}>
           <Navbar.Brand href="#home"><FontAwesomeIcon className="nav-icon" icon={faFacebookF} /></Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav"/>
           <Navbar.Collapse id="basic-navbar-nav">
@@ -73,7 +73,7 @@ function App() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <Container style={{ filter: `blur(${settingsOpen ? '3' : '0'}px)` }}>
+      <Container className={settingsOpen?'blur':''}>
         <Form>
           <Row className="my-3">
             <Form.Group as={Col}>

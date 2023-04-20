@@ -15,7 +15,7 @@ const Settings = ({
         >
             <Modal.Dialog>
                 <Modal.Header>
-                    <Modal.Title>Modal title</Modal.Title>
+                    <Modal.Title>API Keys</Modal.Title>
                 </Modal.Header>
                 <Form.Group as={Col} className="px-3 py-2">
                     <Form.Label>Access Token:</Form.Label>

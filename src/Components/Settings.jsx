@@ -1,4 +1,7 @@
-import { Button, Modal, Form, Col } from "react-bootstrap";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState } from "react";
+import { Button, Modal, Form, Col, InputGroup } from "react-bootstrap";
 
 const Settings = ({
     settingsOpen = false,
@@ -8,6 +11,10 @@ const Settings = ({
     appSecret,
     setAppSecret,
 }) => {
+
+    const [showToken, setShowToken] = useState(true);
+    const [showSecret, setshowSecret] = useState(true);
+
     return (
         <div
             className="modal show"
@@ -19,11 +26,23 @@ const Settings = ({
                 </Modal.Header>
                 <Form.Group as={Col} className="px-3 py-2">
                     <Form.Label>Access Token:</Form.Label>
-                    <Form.Control value={accessToken} onChange={e => setAccessToken(e.target.value)} />
+                    <InputGroup>
+                        <Form.Control type={showSecret?"password":"text"} value={accessToken} onChange={e => setshowSecret(e.target.value)} />
+                        <Button
+                            aria-label="Show Token"
+                            onClick={() => setshowSecret(!showSecret)}
+                        ><FontAwesomeIcon icon={!showSecret?faEye:faEyeSlash} /></Button>
+                    </InputGroup>
                 </Form.Group>
                 <Form.Group as={Col} className="px-3 py-2">
                     <Form.Label>App Secret:</Form.Label>
-                    <Form.Control value={appSecret} onChange={e => setAppSecret(e.target.value)} />
+                    <InputGroup>
+                        <Form.Control type={showToken?"password":"text"} value={appSecret} onChange={e => setShowToken(e.target.value)} />
+                        <Button
+                            aria-label="Show Secret" 
+                            onClick={() => setShowToken(!showToken)}
+                        ><FontAwesomeIcon icon={!showToken?faEye:faEyeSlash} /></Button>
+                    </InputGroup>
                 </Form.Group>
                 <Modal.Footer>
                     <Button variant="primary" onClick={() => setSettingsOpen(false)}>Save changes</Button>

@@ -18,8 +18,21 @@ function App() {
   const [loading, setLoading] = useState(false);
 
   const handleRunClick = () => {
+    // Check if the access token is empty
+    if (accessToken === '') {
+      setJsonOutput(JSON.stringify({error:'Error: Access token is empty'}));
+      return;
+    }
+
+    // Check if the app secret is empty
+    if (appSecret === '') {
+      setJsonOutput(JSON.stringify({error:'Error: App secret is empty'}));
+      console.log("app secret is empty");
+      return;
+    }
+
     // Construct the API URL
-    const apiUrl = `https://graph.facebook.com/${apiVersion}/${productSet}/products?limit=1000&after=0&fields=id,retailer_id,name,short_description,description,currency,price,product_catalog,manufacturer_part_number,custom_label_0,custom_label_1,custom_label_2,custom_label_3,custom_label_4,image_url,url&access_token=${accessToken}&appsecret_proof=${appSecret}`;
+    const apiUrl = `https://graph.facebook.com/${apiVersion}/${productSet}/products?limit=1000&after=0&fields=id,retailer_id,name,short_description,description,currency,price,price_amount,sale_price,sale_price_amount,product_catalog,manufacturer_part_number,custom_label_0,custom_label_1,custom_label_2,custom_label_3,custom_label_4,image_url,url&access_token=${accessToken}&appsecret_proof=${appSecret}`;
     setLoading(true);
 
     // Fetch the data from the API
@@ -87,16 +100,18 @@ function App() {
   return (
     <div className="App">
       <Navbar expand="lg" className="navbar-bg">
-        <Container className={settingsOpen?'blur':''}>
-          <Navbar.Brand href="#home"><FontAwesomeIcon className="nav-icon" icon={faFacebookF} /></Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav"/>
+        <Container className={settingsOpen ? "blur" : ""}>
+          <Navbar.Brand href="#home">
+            <FontAwesomeIcon className="nav-icon" icon={faFacebookF} />
+          </Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav>
               <ApiVersion
                 apiVersion={apiVersion}
                 setApiVersion={setApiVersion}
                 minVersion={12}
-                maxVersion={16}
+                maxVersion={17}
               />
               <Nav.Link onClick={() => setSettingsOpen(!settingsOpen)}>
                 <FontAwesomeIcon icon={faCog} />
@@ -105,16 +120,23 @@ function App() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <Container className={settingsOpen?'blur':''}>
+      <Container className={settingsOpen ? "blur" : ""}>
         <Form>
           <Row className="my-3">
             <Form.Group as={Col}>
               <Form.Label>Product Set:</Form.Label>
-              <Form.Control value={productSet} onChange={e => setProductSet(e.target.value)} />
+              <Form.Control
+                value={productSet}
+                onChange={(e) => setProductSet(e.target.value)}
+              />
             </Form.Group>
           </Row>
-          <Button disabled={loading} variant="primary" onClick={handleRunClick}>Run Command</Button>{' '}
-          <Button variant="secondary" onClick={handleCopyClick}>Copy Output</Button>
+          <Button disabled={loading} variant="primary" onClick={handleRunClick}>
+            Run Command
+          </Button>{" "}
+          <Button variant="secondary" onClick={handleCopyClick}>
+            Copy Output
+          </Button>
         </Form>
         <Row className="my-3">
           <Col>
@@ -128,26 +150,46 @@ function App() {
         </Row>
         <Row className="my-3">
           <Col>
-            {jsonOutput !=="" && 
-            (JSON.parse(jsonOutput).paging.previous || JSON.parse(jsonOutput).paging.next) && 
-              <><Button variant="primary" disabled={loading} onClick={() => handleAPICursor(JSON.parse(jsonOutput).paging.previous)}>Prev</Button>
-              {' '}
-              <Button variant="primary" disabled={loading} onClick={() => handleAPICursor(JSON.parse(jsonOutput).paging.next)}>Next</Button></>
-            }
+            {jsonOutput !== "" &&
+              JSON.parse(jsonOutput)?.paging?.previous &&
+              JSON.parse(jsonOutput)?.paging?.next && (
+                <>
+                  <Button
+                    variant="primary"
+                    disabled={loading}
+                    onClick={() =>
+                      handleAPICursor(JSON.parse(jsonOutput)?.paging?.previous)
+                    }
+                  >
+                    Prev
+                  </Button>{" "}
+                  <Button
+                    variant="primary"
+                    disabled={loading}
+                    onClick={() =>
+                      handleAPICursor(JSON.parse(jsonOutput)?.paging?.next)
+                    }
+                  >
+                    Next
+                  </Button>
+                </>
+              )}
           </Col>
         </Row>
       </Container>
 
-      {settingsOpen && <Settings
-        settingsOpen={settingsOpen}
-        setSettingsOpen={setSettingsOpen}
-        accessToken={accessToken}
-        setAccessToken={setAccessToken}
-        appSecret={appSecret}
-        setAppSecret={setAppSecret}
-      />}
+      {settingsOpen && (
+        <Settings
+          settingsOpen={settingsOpen}
+          setSettingsOpen={setSettingsOpen}
+          accessToken={accessToken}
+          setAccessToken={setAccessToken}
+          appSecret={appSecret}
+          setAppSecret={setAppSecret}
+        />
+      )}
     </div>
-  )
+  );
 }
 
 export default App

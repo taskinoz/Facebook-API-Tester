@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://taskinoz.github.io/Facebook-API-Tester",
+  "homepage": "https://taskinoz.github.io/Facebook-API-Tester/",
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",

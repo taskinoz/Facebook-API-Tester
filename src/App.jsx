@@ -209,7 +209,7 @@ function App() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <Container className={settingsOpen ? "blur" : ""}>
+      <Container className={settingsOpen || showFields ? "blur" : ""}>
         <Form>
           <Row className="my-3">
             <Form.Group as={Col}>

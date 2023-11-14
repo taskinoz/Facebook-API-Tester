@@ -17,6 +17,7 @@
 
 ### Curl Command
 
+**Product Set**
 ```bash
 curl -G \
 -d 'limit=1000' \
@@ -25,4 +26,13 @@ curl -G \
 -d 'access_token=ACCESS_TOKEN' \
 -d 'appsecret_proof=APP_SECRET' \
 https://graph.facebook.com/API_VERSION/PRODUCT_SET/products
+```
+
+**Product Catalogue**
+```bash
+curl -G \
+  -d 'limit=500' \
+  -d 'access_token=ACCESS_TOKEN' \
+  -d 'appsecret_proof=APP_SECRET' \
+  https://graph.facebook.com/API_VERSION/PRODUCT_CATEGORY/product_sets
 ```

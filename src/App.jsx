@@ -236,23 +236,17 @@ function App() {
           >
             Run Set
           </Button>{" "}
-          <Button 
-            variant="primary" 
-            onClick={() => setShowFields(!showFields)}
-          >
-            Fields
-          </Button>{" "}
-          <Button 
-            disabled={loading || category === ""} 
-            variant="primary" 
+          <Button
+            disabled={loading || category === ""}
+            variant="primary"
             onClick={handleCategory}
           >
             Run Category
           </Button>{" "}
-          <Button 
-            variant="secondary" 
-            onClick={handleCopyClick}
-          >
+          <Button variant="primary" onClick={() => setShowFields(!showFields)}>
+            Fields
+          </Button>{" "}
+          <Button variant="secondary" onClick={handleCopyClick}>
             Copy Output
           </Button>
         </Form>

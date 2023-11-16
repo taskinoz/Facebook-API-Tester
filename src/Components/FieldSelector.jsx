@@ -21,6 +21,7 @@ const FieldSelector = ({
         <Modal.Body>
           {fields.map((field, index) => (
             <Form.Check
+              id={field.name}
               key={index}
               type="checkbox"
               label={field.name}

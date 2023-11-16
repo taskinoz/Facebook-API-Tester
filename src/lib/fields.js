@@ -355,6 +355,16 @@ export const fields = [
         description: 'The priority of a flight or hotel. Values from 0 (lowest priority) to 5 (highest priority). A flight without a value defaults to 0.'
     },
     {
+        name: 'product_catalog',
+        type: 'string',
+        description: 'Product catalog for this product set'
+    },
+    {
+        name: 'product_count',
+        type: 'uint32',
+        description: 'Count of products in this product set'
+    },
+    {
         name: 'product_expiration_time',
         type: 'string',
         description: 'The date and time when the product is no longer available. Ads will only fetch products that have not expired. For example, if the expiration date is today, after today this product will no longer appear in ads.'

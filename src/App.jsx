@@ -9,6 +9,7 @@ import { faCog, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import Settings from './Components/Settings';
 import FieldSelector from './Components/FieldSelector';
 import { fields } from './lib/fields';
+import { checkData } from './lib/errors';
 
 function App() {
   const [apiVersion, setApiVersion] = useState('v18.0');
@@ -46,26 +47,31 @@ function App() {
     "url",
   ]);
 
+  console.log(selectedFields);
+
   const handleProductSet = () => {
-    // Check if the access token is empty
-    if (accessToken === '') {
-      setJsonOutput(JSON.stringify({error:'Error: Access token is empty'}));
-      return;
-    }
+    const checks = [
+      {
+        name: "Access Token",
+        value: accessToken,
+      },
+      {
+        name: "App Secret",
+        value: appSecret,
+      },
+      {
+        name: "Product Set",
+        value: productSet,
+      },
+    ];
 
-    // Check if the app secret is empty
-    if (appSecret === '') {
-      setJsonOutput(JSON.stringify({error:'Error: App secret is empty'}));
-      console.log("app secret is empty");
-      return;
-    }
-
-    // Check if the product set is empty
-    if (productSet === '') {
-      setJsonOutput(JSON.stringify({error:'Error: Product set is empty'}));
-      console.log("product set is empty");
-      return;
-    }
+    checks.forEach((check) => {
+      let error = checkData(check.name, check.value);
+      if (error) {
+        setJsonOutput(JSON.stringify({ error }));
+        return;
+      }
+    });
 
     // Construct the API URL
     const apiUrl = `https://graph.facebook.com/${apiVersion}/${productSet}/products?limit=1000&after=0&fields=${selectedFields.toString()}&access_token=${accessToken}&appsecret_proof=${appSecret}`;
@@ -75,7 +81,7 @@ function App() {
     fetch(apiUrl)
       .then(response => {
         if (!response.ok) {
-          throw new Error('Failed to fetch data');
+          setJsonOutput(JSON.stringify({error:'Failed to fetch data'}));
         }
         setLoading(false);
         return response.json();
@@ -100,25 +106,29 @@ function App() {
   };
 
   const handleCategory = () => {
-    // Check if the access token is empty
-    if (accessToken === '') {
-      setJsonOutput(JSON.stringify({error:'Error: Access token is empty'}));
-      return;
-    }
 
-    // Check if the app secret is empty
-    if (appSecret === '') {
-      setJsonOutput(JSON.stringify({error:'Error: App secret is empty'}));
-      console.log("app secret is empty");
-      return;
-    }
+    const checks = [
+      {
+        name: "Access Token",
+        value: accessToken,
+      },
+      {
+        name: "App Secret",
+        value: appSecret,
+      },
+      {
+        name: "Category",
+        value: category,
+      },
+    ];
 
-    // Check if the category is empty
-    if (category === '') {
-      setJsonOutput(JSON.stringify({error:'Error: Category is empty'}));
-      console.log("category is empty");
-      return;
-    }
+    checks.forEach((check) => {
+      let error = checkData(check.name, check.value);
+      if (error) {
+        setJsonOutput(JSON.stringify({ error }));
+        return;
+      }
+    });
 
     // Construct the API URL
     const apiUrl = `https://graph.facebook.com/${apiVersion}/${category}/product_sets?limit=500&access_token=${accessToken}&appsecret_proof=${appSecret}`;

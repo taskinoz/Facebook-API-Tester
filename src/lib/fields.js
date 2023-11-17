@@ -1,5 +1,17 @@
 // Description: Fields for Facebook Product Sets
 // Source: https://developers.facebook.com/docs/marketing-api/reference/product-set/
+// Data Source: https://developers.facebook.com/docs/marketing-api/reference/product-catalog/products
+// Data Source: https://developers.facebook.com/docs/marketing-api/reference/product-catalog/product-sets
+// Data Source: https://developers.facebook.com/docs/marketing-api/reference/product-catalog/vehicles
+// Data Source: https://developers.facebook.com/docs/marketing-api/reference/product-catalog/vehicle-offers
+// Data Example
+/*
+    {
+        name: '',
+        type: '',
+        description: ''
+    },
+*/
 
 export const fields = [
     {
@@ -102,6 +114,31 @@ export const fields = [
         description: 'The value for a custom label of a product item, hotel, destination, vehicle, or home listing.'
     },
     {
+        name: 'custom_number_0',
+        type: 'string',
+        description: ''
+    },
+    {
+        name: 'custom_number_1',
+        type: 'string',
+        description: ''
+    },
+    {
+        name: 'custom_number_2',
+        type: 'string',
+        description: ''
+    },
+    {
+        name: 'custom_number_3',
+        type: 'string',
+        description: ''
+    },
+    {
+        name: 'custom_number_4',
+        type: 'string',
+        description: ''
+    },
+    {
         name: 'date_first_on_lot',
         type: 'string',
         description: 'The date a vehicle first arrived at the dealership in YYYY-MM-DD format. For example, 2018-09-05.'
@@ -202,9 +239,19 @@ export const fields = [
         description: 'The unique ID for a hotel within a catalog. This ID is also used for the content_id parameter in your hotel app and pixel events.'
     },
     {
+        name: 'id',
+        type: 'string',
+        description: 'ID of the product set.'
+    },
+    {
         name: 'image_tags',
         type: 'string',
         description: 'URLs and tags to describe images that are used in ads. Multiple tags can be associated with an image. For example, "Fitness Center", "Swimming Pool", or "Parking". For vehicles, follow this naming convention: (image[0].url, image[0].tag[0], image[0].tag[1]) where the tag value is incremented for each additional tag. When using a CSV/TSV file, use either an image header, image[0].url, image[1].url, and so on, or a JSON flatten string, "[{url:\'https://images.com/1.jpg\'},{url:\'https://images.com/2.jpg\'}]".'
+    },
+    {
+        name: 'image_url',
+        type: 'URI',
+        description: 'Required. URL of the product image.'
     },
     {
         name: 'interior_color',
@@ -221,6 +268,16 @@ export const fields = [
         name: 'make',
         type: 'string',
         description: 'The brand of a vehicle. For example, Ford, Toyota, or Kia.'
+    },
+    {
+        name: 'manufacturer_info',
+        type: 'string',
+        description: 'The Manufacturer Information such as Name, address, etc...'
+    },
+    {
+        name: 'manufacturer_part_number',
+        type: 'string',
+        description: 'Manufacturer\'s ID for the product item'
     },
     {
         name: 'margin_level',
@@ -422,8 +479,8 @@ export const fields = [
     },
     {
         name: 'sale_price',
-        type: 'int',
-        description: 'The sale price or special price for a vehicle.'
+        type: 'int64',
+        description: 'Sale price of the item with 2 digits added for cents (ex: use "100" for 1 or "599" for 5.99)'
     },
     {
         name: 'sale_price_amount',
@@ -431,9 +488,29 @@ export const fields = [
         description: 'The sale price for a product item (same format as price_amount). For hotels, the discounted sale price for a hotel stay, based on checkin_date and length_of_stay.'
     },
     {
+        name: 'sale_active',
+        type: 'bool',
+        description: 'Indicates whether a vehicle is on sale.'
+    },
+    {
+        name: 'sale_price_start_date',
+        type: 'string',
+        description: 'Date when the sale price starts'
+    },
+    {
+        name: 'sale_price_end_date',
+        type: 'string',
+        description: 'Date when the sale price ends'
+    },
+    {
         name: 'score',
         type: 'float',
         description: 'The rating score for a hotel.'
+    },
+    {
+        name: 'short_description',
+        type: 'string',
+        description: 'A brief description of the product'
     },
     {
         name: 'size',

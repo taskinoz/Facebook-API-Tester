@@ -47,8 +47,6 @@ function App() {
     "url",
   ]);
 
-  console.log(selectedFields);
-
   const handleProductSet = () => {
     const checks = [
       {
